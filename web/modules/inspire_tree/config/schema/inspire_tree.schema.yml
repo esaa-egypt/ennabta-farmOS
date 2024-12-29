@@ -1,0 +1,8 @@
+inspire_tree.settings:
+  type: config_object
+  label: 'Inspire tree settings'
+  mapping:
+    mode:
+      type: string
+      label: 'Mode'
+      description: 'Whether to use dark or light mode, or none'

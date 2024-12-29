@@ -1,0 +1,12 @@
+administer log types:
+  title: 'Administer log types'
+  description: 'Maintain the types of content available and the fields that are associated with those types.'
+  restrict access: true
+view all log revisions:
+  title: 'View all log revisions'
+  description: 'Allow viewing log entity revisions.'
+  restrict access: true
+revert all log revisions:
+  title: 'Revert all log revisions'
+  description: 'Allow reverting to a previous log entity revision.'
+  restrict access: true

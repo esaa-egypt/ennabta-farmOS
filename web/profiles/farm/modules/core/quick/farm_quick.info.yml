@@ -1,0 +1,13 @@
+name: farmOS Quick Forms
+description: Provides a framework for farmOS quick forms.
+type: module
+package: farmOS
+core_version_requirement: ^10
+dependencies:
+  - entity:entity
+  - drupal:taxonomy
+  - farm:asset
+  - farm:farm_log_quantity
+  - farm:farm_setup
+  - farm:quantity
+  - log:log

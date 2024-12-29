@@ -1,0 +1,7 @@
+services:
+  farm_log_quantity.event_subscriber:
+    class: Drupal\farm_log_quantity\EventSubscriber\LogQuantityEventSubscriber
+    arguments:
+      [ '@entity_type.manager' ]
+    tags:
+      - { name: 'event_subscriber' }

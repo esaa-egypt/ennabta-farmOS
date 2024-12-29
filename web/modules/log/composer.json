@@ -1,0 +1,17 @@
+{
+  "name": "drupal/log",
+  "type": "drupal-module",
+  "description": "Provides a log entity type for real world record keeping.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/log",
+  "support": {
+    "issues": "http://drupal.org/project/issues/log",
+    "source": "https://git.drupalcode.org/project/log"
+  },
+  "require": {
+    "drupal/entity": "^1.0",
+    "drupal/state_machine": "^1.0",
+    "drupal/token": "^1.0"
+  }
+}

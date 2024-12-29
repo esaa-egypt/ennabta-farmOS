@@ -1,0 +1,7 @@
+id: default
+label: default
+description: 'Test log type'
+name_pattern: '[log:id:value]'
+langcode: en
+workflow: log_default
+new_revision: TRUE

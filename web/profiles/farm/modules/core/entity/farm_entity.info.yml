@@ -1,0 +1,12 @@
+name: farmOS Entity
+description: Adds opinionated entity and field configuration to farmOS entity types.
+type: module
+package: farmOS
+core_version_requirement: ^10
+dependencies:
+  - entity:entity
+  - entity_reference_integrity:entity_reference_integrity_enforce
+  - exif_orientation:exif_orientation
+  - farm:farm_entity_fields
+  - farm:farm_entity_views
+  - farm:farm_log

@@ -1,0 +1,34 @@
+{
+    "require": {
+        "cweagans/composer-patches": "^1.7",
+        "drupal/core-composer-scaffold": "10.3.9"
+    },
+    "require-dev": {
+        "behat/mink": "^1.10",
+        "behat/mink-browserkit-driver": "^2.1",
+        "behat/mink-selenium2-driver": "^1.6",
+        "brianium/paratest": "^6",
+        "drupal/coder": "^8.3",
+        "mglaman/phpstan-drupal": "^1.1",
+        "mikey179/vfsstream": "^1.6",
+        "phpstan/extension-installer": "^1.1",
+        "phpcompatibility/php-compatibility": "^9",
+        "phpstan/phpstan": "^1.8",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpunit/phpunit": "^9",
+        "phpspec/prophecy-phpunit": "^2",
+        "symfony/phpunit-bridge": "^6.2"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "extra": {
+        "composer-exit-on-patch-failure": true,
+        "drupal-scaffold": {
+            "locations": {
+               "web-root": "web/"
+            }
+        },
+        "enable-patching": true
+    }
+}

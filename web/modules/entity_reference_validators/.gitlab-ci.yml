@@ -1,0 +1,12 @@
+include:
+  - project: "project/gitlab_templates"
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - "/includes/include.drupalci.main.yml"
+      - "/includes/include.drupalci.variables.yml"
+      - "/includes/include.drupalci.workflows.yml"
+
+variables:
+  _TARGET_PHP: "8.1"
+  _TARGET_CORE: "10.0.7"
+  SYMFONY_DEPRECATIONS_HELPER: weak

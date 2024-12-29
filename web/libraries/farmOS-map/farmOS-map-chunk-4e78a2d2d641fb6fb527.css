@@ -1,0 +1,17 @@
+.ol-edit.ol-control {
+  left: 0.5em;
+}
+
+.ol-edit.ol-control .ol-edit-buttons.draw {
+  margin-bottom: 4px;
+}
+
+.ol-edit.ol-control button.active {
+  background-color: #fc3;
+  background-color: rgba(255, 204, 51, 0.7);
+}
+
+.ol-edit.ol-control button svg {
+  pointer-events: none;
+}
+

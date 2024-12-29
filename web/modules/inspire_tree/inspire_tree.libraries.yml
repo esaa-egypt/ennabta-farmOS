@@ -1,0 +1,36 @@
+inspire_tree:
+  remote: https://github.com/helion3/inspire-tree
+  version: 6.0.1
+  license:
+    name: MIT
+    url: https://github.com/helion3/inspire-tree/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    //cdn.jsdelivr.net/gh/helion3/inspire-tree@6.0.1/dist/inspire-tree.min.js: { type: external, minified: true }
+  dependencies:
+    - core/underscore
+    - inspire_tree/lodash
+
+inspire_tree_dom:
+  remote: https://github.com/helion3/inspire-tree-dom
+  version: 4.0.6
+  license:
+    name: MIT
+    url: https://github.com/helion3/inspire-tree/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    //cdn.jsdelivr.net/gh/helion3/inspire-tree-dom@4.0.6/dist/inspire-tree-dom.min.js: { type: external, minified: true }
+  dependencies:
+    - core/underscore
+    - inspire_tree/lodash
+    - inspire_tree/inspire_tree
+
+lodash:
+  remote: https://github.com/lodash/lodash
+  version: 4.17.21
+  license:
+    name: MIT
+    url: https://github.com/lodash/lodash/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    //cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js: { type: external, minified: true }

@@ -1,0 +1,95 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultForbidden;
+use Drupal\Core\Action\Plugin\Action\DeleteAction as CoreDeleteAction;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\entity_reference_integrity\EntityReferenceIntegrityEntityHandler;
+use Drupal\entity_reference_integrity_enforce\FormAlter;
+use Drupal\entity_reference_integrity_enforce\EntityPredelete;
+use Drupal\entity_reference_integrity_enforce\Plugin\Action\DeleteAction;
+
+/**
+ * Implements hook_form_alter().
+ */
+function entity_reference_integrity_enforce_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(FormAlter::class)
+    ->formAlter($form, $form_state, $form_id);
+}
+
+/**
+ * Implements hook_entity_predelete().
+ */
+function entity_reference_integrity_enforce_entity_predelete(EntityInterface $entity) {
+  \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(EntityPredelete::class)
+    ->entityDelete($entity);
+}
+
+/**
+ * Implements hook_entity_access().
+ */
+function entity_reference_integrity_enforce_entity_access(EntityInterface $entity, $operation, AccountInterface $account) {
+
+  // Only check access for delete operations.
+  if ($operation != 'delete') {
+    return AccessResult::neutral();
+  }
+
+  // Only check access for valid routes. This can return NULL.
+  $route = \Drupal::routeMatch()->getRouteObject();
+  if (empty($route)) {
+    return AccessResult::neutral();
+  }
+
+  // Only check access for API endpoints by checking the route _format.
+  // @todo Check formats for other API endpoints such as GraphQL and REST.
+  $api_formats = ['api_json'];
+  $format = $route->getRequirement('_format');
+  if (empty($format) || !in_array($format, $api_formats)) {
+    return AccessResult::neutral();
+  }
+
+  /** @var \Drupal\entity_reference_integrity\EntityReferenceIntegrityEntityHandler $entity_reference_integrity_handler */
+  $entity_reference_integrity_handler = \Drupal::entityTypeManager()->getHandler($entity->getEntityTypeId(), 'entity_reference_integrity');
+  $enabled_entity_type_ids = \Drupal::configFactory()->get('entity_reference_integrity_enforce.settings')->get('enabled_entity_type_ids');
+
+  // Finally deny access if the entity has dependents.
+  if (in_array($entity->getEntityTypeId(), $enabled_entity_type_ids, TRUE) && $entity_reference_integrity_handler->hasDependents($entity)) {
+    $reason = EntityReferenceIntegrityEntityHandler::getAccessDeniedReason($entity, FALSE);
+    return new AccessResultForbidden($reason);
+  }
+
+  return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function entity_reference_integrity_enforce_module_implements_alter(&$implementations, $hook) {
+  if ($hook !== 'entity_predelete') {
+    return;
+  }
+  unset($implementations['entity_reference_integrity_enforce']);
+  $implementations = ['entity_reference_integrity_enforce' => FALSE] + $implementations;
+}
+
+/**
+ * Implements hook_action_info_alter().
+ */
+function entity_reference_integrity_enforce_action_info_alter(&$definitions) {
+  // Replace the core entity:delete_action plugin.
+  foreach ($definitions as &$definition) {
+    if ($definition['id'] === 'entity:delete_action' && $definition['class'] === CoreDeleteAction::class) {
+      $definition['class'] = DeleteAction::class;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+migrate_source_ui.form:
+  path: '/admin/content/migrate_source_ui'
+  defaults:
+    _title: 'Migrate source UI'
+    _form: '\Drupal\migrate_source_ui\Form\MigrateSourceUiForm'
+  requirements:
+    _permission: 'access migrate source ui'
+migrate_source_ui.settings:
+  path: '/admin/config/content/migrate_source_ui'
+  defaults:
+    _title: 'Migrate Source UI Settings'
+    _form: '\Drupal\migrate_source_ui\Form\MigrateSourceUiAdminSettingsForm'
+  requirements:
+    _permission: 'administer migrate source ui'

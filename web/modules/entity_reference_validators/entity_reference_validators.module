@@ -1,0 +1,144 @@
+<?php
+
+/**
+ * @file
+ * Provides additional validators for entity reference fields.
+ */
+
+use Drupal\Core\Config\Entity\ThirdPartySettingsInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function entity_reference_validators_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  /** @var \Drupal\field\Entity\FieldConfig $field */
+  foreach ($fields as $key => $field) {
+    if ($field instanceof ThirdPartySettingsInterface) {
+      if ($field->getThirdPartySetting(
+        'entity_reference_validators',
+        'circular_reference',
+        FALSE
+      )) {
+        $deep = $field->getThirdPartySetting(
+          'entity_reference_validators',
+          'circular_reference_deep',
+          FALSE
+        );
+        $field->addConstraint('CircularReference', ['deep' => $deep]);
+      }
+      if ($field->getThirdPartySetting(
+        'entity_reference_validators',
+        'duplicate_reference',
+        FALSE
+      )) {
+        $field->addConstraint('DuplicateReference');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for 'field_config_edit_form'.
+ */
+function entity_reference_validators_form_field_config_edit_form_alter(
+  array &$form,
+  FormStateInterface $form_state
+) {
+  /** @var \Drupal\field\Entity\FieldConfig $field */
+  $field = $form_state->getFormObject()->getEntity();
+
+  if ($field->getType(
+    ) === 'entity_reference' && $field instanceof ThirdPartySettingsInterface) {
+    // Add a fieldset for the validators.
+    $form['third_party_settings']['entity_reference_validators']['container'] = [
+      '#type' => 'details',
+      '#title' => t('Reference validators'),
+      '#open' => TRUE,
+    ];
+
+    $form['third_party_settings']['entity_reference_validators']['container']['circular_reference'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Prevent circular references'),
+      '#default_value' => $field->getThirdPartySetting(
+        'entity_reference_validators',
+        'circular_reference',
+        FALSE
+      ),
+      '#parents' => [
+        'third_party_settings',
+        'entity_reference_validators',
+        'circular_reference',
+      ],
+      // Only check for circular references when the target type is the same as
+      // the field's.
+      '#access' => $field->getTargetEntityTypeId(
+      ) === $field->getItemDefinition()->getSetting('target_type'),
+    ];
+
+    $form['third_party_settings']['entity_reference_validators']['container']['circular_reference_deep'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Recursively check circular references'),
+      '#default_value' => $field->getThirdPartySetting(
+        'entity_reference_validators',
+        'circular_reference_deep',
+        FALSE
+      ),
+      '#parents' => [
+        'third_party_settings',
+        'entity_reference_validators',
+        'circular_reference_deep',
+      ],
+      // Only check for circular references when the target type is the same as
+      // the field's.
+      '#access' => $field->getTargetEntityTypeId(
+      ) === $field->getItemDefinition()->getSetting('target_type'),
+      '#states' => [
+        // Hide the additional settings when circular_reference is disabled.
+        'visible' => [
+          'input[name="third_party_settings[entity_reference_validators][circular_reference]"]' => ['checked' => TRUE],
+        ],
+      ],
+      '#element_validate' => ['_entity_reference_validators_circular_reference_deep_checkbox_validate'],
+    ];
+
+    $form['third_party_settings']['entity_reference_validators']['container']['duplicate_reference'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Prevent entity from referencing duplicates'),
+      '#default_value' => $field->getThirdPartySetting(
+        'entity_reference_validators',
+        'duplicate_reference',
+        FALSE
+      ),
+      '#parents' => [
+        'third_party_settings',
+        'entity_reference_validators',
+        'duplicate_reference',
+      ],
+    ];
+  }
+}
+
+/**
+ * Validate callback for circular_reference_deep field.
+ */
+function _entity_reference_validators_circular_reference_deep_checkbox_validate(array $form, FormStateInterface $form_state) {
+  // Ensure that circular reference settings are kept in sync.
+  if (!$form_state->getValue(
+    [
+      'third_party_settings',
+      'entity_reference_validators',
+      'circular_reference',
+    ]
+  )) {
+    $form_state->setValue(
+      [
+        'third_party_settings',
+        'entity_reference_validators',
+        'circular_reference_deep',
+      ],
+      FALSE
+    );
+  }
+}

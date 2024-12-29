@@ -1,0 +1,10 @@
+migrate_source_ui.menu:
+  title: 'Migrate Source UI'
+  parent: system.admin_content
+  enabled: 1
+  route_name: migrate_source_ui.form
+migrate_source_ui.settings:
+  title: 'Migrate Source UI Settings'
+  parent: system.admin_config_content
+  enabled: 1
+  route_name: migrate_source_ui.settings

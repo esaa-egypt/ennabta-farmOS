@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_log_category.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_log_category_entity_base_field_info(EntityTypeInterface $entity_type) {
+
+  // Add category base field to all log types.
+  $fields = [];
+  if ($entity_type->id() == 'log') {
+    $category_info = [
+      'type' => 'entity_reference',
+      'label' => t('Log category'),
+      'description' => t('Use this to organize your logs into categories for easier searching and filtering later.'),
+      'target_type' => 'taxonomy_term',
+      'target_bundle' => 'log_category',
+      'multiple' => TRUE,
+      'weight' => [
+        'view' => 80,
+      ],
+      'form_display_options' => [
+        'type' => 'options_select',
+        'weight' => 10,
+      ],
+    ];
+    $fields['category'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($category_info);
+  }
+  return $fields;
+}
+
+/**
+ * Implements hook_farm_ui_theme_region_items().
+ */
+function farm_log_category_farm_ui_theme_region_items(string $entity_type) {
+
+  // Define common asset, log, and plan region items on behalf of core modules.
+  switch ($entity_type) {
+
+    case 'log':
+      return [
+        'second' => [
+          'category',
+        ],
+      ];
+
+    default:
+      return [];
+  }
+}

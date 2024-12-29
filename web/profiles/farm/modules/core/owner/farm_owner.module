@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_owner.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function farm_owner_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  // Add owner field to logs and assets.
+  if (in_array($entity_type->id(), ['asset', 'log'])) {
+    $field_info = [
+      'type' => 'entity_reference',
+      'label' => t('Owners'),
+      'description' => t('Assign ownership to one or more users.'),
+      'target_type' => 'user',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => -70,
+        'view' => -70,
+      ],
+    ];
+
+    $fields['owner'] = \Drupal::service('farm_field.factory')->baseFieldDefinition($field_info);
+  }
+
+  return $fields;
+}

@@ -1,0 +1,8 @@
+/*!
+ * ol-geocoder - v4.3.1
+ * A geocoder extension compatible with OpenLayers v6.x, v7.x & v8.x
+ * https://github.com/Dominique92/ol-geocoder
+ * Built: 15/09/2023 16:57:41
+ */
+
+/*! farmOS-map 2.3.0 */

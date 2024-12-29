@@ -1,0 +1,59 @@
+# Schema for the configuration files of the log module.
+log.type.*:
+  type: config_entity
+  label: 'Log type'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    label:
+      type: label
+      label: 'Type'
+    description:
+      type: text
+      label: 'Description'
+    name_pattern:
+      type: string
+      label: 'Pattern for auto-generating the log name, using tokens.'
+    workflow:
+      type: string
+      label: 'Workflow'
+    new_revision:
+      type: boolean
+      label: 'Create new revision'
+
+condition.plugin.log_type:
+  type: condition.plugin
+  mapping:
+    bundles:
+      type: sequence
+      sequence:
+        type: string
+
+views.sort.log_standard:
+  type: views_sort
+  label: 'Timestamp sort'
+  mapping:
+    granularity:
+      type: string
+      label: 'Granularity'
+
+views.field.log_field:
+  type: views.field.field
+  label: 'Timestamp sort'
+
+action.configuration.log_clone_action:
+  type: action_configuration_default
+  label: 'Configuration for the log clone action'
+
+action.configuration.log_mark_as_done_action:
+  type: action_configuration_default
+  label: 'Configuration for the log mark as done action'
+
+action.configuration.log_mark_as_pending_action:
+  type: action_configuration_default
+  label: 'Configuration for the log mark as pending action'
+
+action.configuration.log_reschedule_action:
+  type: action_configuration_default
+  label: 'Configuration for the log reschedule action'

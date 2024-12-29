@@ -1,0 +1,13 @@
+/vendor/
+/web/
+/node_modules/
+.env
+composer.lock
+yarn.lock
+/.editorconfig
+/.gitattributes
+
+#PHPUnit output
+junit.xml
+.phpunit.result.cache
+

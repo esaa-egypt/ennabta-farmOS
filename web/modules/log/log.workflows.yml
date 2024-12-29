@@ -1,0 +1,18 @@
+log_default:
+  id: log_default
+  group: log
+  label: 'Default'
+  states:
+    pending:
+      label: Pending
+    done:
+      label: Done
+  transitions:
+    done:
+      label: 'Done'
+      from: [pending]
+      to: done
+    to_pending:
+      label: 'Move to Pending'
+      from: [done]
+      to: pending

@@ -1,0 +1,8 @@
+access migrate source ui:
+  title: 'Access Migrate Source UI'
+  description: 'Allow access to use the migrate source UI.'
+  restrict access: true
+administer migrate source ui:
+  title: 'Administer Migrate Source UI Settings'
+  description: 'Allow access to configure settings for the Migrate Source UI module.'
+  restrict access: true

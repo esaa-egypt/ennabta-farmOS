@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Contains farm_equipment.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_farm_entity_bundle_field_info().
+ */
+function farm_equipment_farm_entity_bundle_field_info(EntityTypeInterface $entity_type, string $bundle) {
+  $fields = [];
+
+  // Add an Equipment reference field to logs.
+  if ($entity_type->id() == 'log') {
+    $options = [
+      'type' => 'entity_reference',
+      'label' => t('Equipment used'),
+      'description' => t('What equipment was used?'),
+      'target_type' => 'asset',
+      'target_bundle' => 'equipment',
+      'multiple' => TRUE,
+      'weight' => [
+        'form' => 40,
+        'view' => 40,
+      ],
+    ];
+    $fields['equipment'] = \Drupal::service('farm_field.factory')->bundleFieldDefinition($options);
+  }
+
+  return $fields;
+}
+
+/**
+ * Implements hook_farm_ui_theme_field_group_items().
+ */
+function farm_equipment_farm_ui_theme_field_group_items(string $entity_type, string $bundle) {
+  if ($entity_type == 'log') {
+    return [
+      'equipment' => 'asset',
+    ];
+  }
+  return [];
+}

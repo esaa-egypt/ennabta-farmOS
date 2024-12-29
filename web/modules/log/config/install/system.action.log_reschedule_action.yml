@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - log
+id: log_reschedule_action
+label: 'Reschedule'
+type: log
+plugin: log_reschedule_action
+configuration: {  }

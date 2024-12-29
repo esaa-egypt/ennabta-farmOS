@@ -1,0 +1,7 @@
+name: farmOS Default Roles
+description: 'Provides default roles: Manager, Worker, Viewer.'
+type: module
+package: farmOS Defaults
+core_version_requirement: ^10
+dependencies:
+  - farm:farm_role

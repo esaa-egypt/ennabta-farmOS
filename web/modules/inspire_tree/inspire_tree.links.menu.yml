@@ -1,0 +1,5 @@
+inspire_tree.delete_orphans:
+  title: 'Inspire tree'
+  parent: system.admin_config_system
+  description: 'Inspire tree settings.'
+  route_name: inspire_tree.settings

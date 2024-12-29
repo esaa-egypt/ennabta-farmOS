@@ -1,0 +1,7 @@
+inspire_tree.settings:
+  path: '/admin/config/services/system/inspire-tree'
+  defaults:
+    _form: '\Drupal\inspire_tree\Form\InspireTreeSettingsForm'
+    _title: 'Inspire tree'
+  requirements:
+    _permission: 'administer site configuration'

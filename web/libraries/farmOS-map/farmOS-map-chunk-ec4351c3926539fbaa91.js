@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_farmos_org_farmos_map=self.webpackChunk_farmos_org_farmos_map||[]).push([[330],{4593:(a,s,o)=>{o.r(s),o.d(s,{default:()=>e});const e={attach(a){a.map.on("loadstart",(()=>{a.map.getViewport().classList.add("loading-spinner")})),a.map.on("loadend",(()=>{a.map.getViewport().classList.remove("loading-spinner")}))}}}}]);

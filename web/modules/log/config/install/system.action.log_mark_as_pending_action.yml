@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - log
+id: log_mark_as_pending_action
+label: 'Mark as pending'
+type: log
+plugin: log_mark_as_pending_action
+configuration: {  }

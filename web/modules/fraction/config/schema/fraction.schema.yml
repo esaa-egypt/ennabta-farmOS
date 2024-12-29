@@ -1,0 +1,120 @@
+field.field_settings.fraction:
+  type: mapping
+  label: 'Fraction'
+  mapping:
+    prefix:
+      type: label
+      label: 'Prefix'
+    suffix:
+      type: label
+      label: 'Suffix'
+    min:
+      type: float
+      label: 'Min'
+    max:
+      type: float
+      label: 'Max'
+
+field.formatter.settings.fraction:
+  type: mapping
+  label: 'Fraction display format settings'
+  mapping:
+    separator:
+      type: string
+      label: 'Separator'
+    prefix_suffix:
+      type: boolean
+      label: 'Display prefix and suffix.'
+
+field.formatter.settings.fraction_decimal:
+  type: mapping
+  label: 'Fraction decimal display format settings'
+  mapping:
+    precision:
+      type: integer
+      label: 'Precision'
+    auto_precision:
+      type: boolean
+      label: 'Auto precision'
+    prefix_suffix:
+      type: boolean
+      label: 'Display prefix and suffix.'
+
+field.formatter.settings.fraction_percentage:
+  type: mapping
+  label: 'Fraction percentage display format settings'
+  mapping:
+    precision:
+      type: integer
+      label: 'Precision'
+    auto_precision:
+      type: boolean
+      label: 'Auto precision'
+    prefix_suffix:
+      type: boolean
+      label: 'Display prefix and suffix.'
+
+field.widget.settings.fraction_decimal:
+  type: mapping
+  label: 'Widget settings for Fraction Decimal'
+  mapping:
+    precision:
+      type: integer
+      label: 'Precision'
+    auto_precision:
+      type: boolean
+      label: 'Auto precision'
+
+field.value.fraction:
+  type: mapping
+  label: 'Default value'
+  mapping:
+    numerator:
+      type: integer
+      label: 'Numerator'
+    denominator:
+      type: integer
+      label: 'Denominator'
+
+views.field.fraction:
+  type: views_field
+  label: 'Fraction'
+  mapping:
+    precision:
+      type: integer
+      label: 'Precision'
+    auto_precision:
+      type: boolean
+      label: 'Auto precision'
+
+views.filter.fraction:
+  type: views_filter
+  label: 'Numeric'
+  mapping:
+    expose:
+      type: mapping
+      label: 'Exposed'
+      mapping:
+        min_placeholder:
+          type: label
+          label: 'Min placeholder'
+        max_placeholder:
+          type: label
+          label: 'Max placeholder'
+        placeholder:
+          type: label
+          label: 'Placeholder'
+
+views.filter_value.fraction:
+  type: mapping
+  label: 'Fraction'
+  mapping:
+    min:
+      type: string
+      label: 'Min'
+    max:
+      type: string
+      label: 'And max'
+    value:
+      type: string
+      label: 'Value'

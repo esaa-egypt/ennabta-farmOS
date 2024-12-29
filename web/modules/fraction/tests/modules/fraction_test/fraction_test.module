@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Fraction test module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function fraction_test_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+
+  // Add a single-value fraction base field to nodes.
+  if ($entity_type->id() == 'node') {
+    $fields['fraction'] = BaseFieldDefinition::create('fraction')->setLabel('Fraction')->setCardinality(1);
+  }
+
+  return $fields;
+}

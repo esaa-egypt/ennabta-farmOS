@@ -1,0 +1,12 @@
+name: Inspire Tree
+description: Provides integration with the inspire tree javascript library.
+package: Other
+type: module
+core_version_requirement: ^8.8 || ^9 || ^10
+libraries-override:
+  core/underscore: inspire_tree/lodash
+
+# Information added by Drupal.org packaging script on 2022-11-14
+version: '1.0.5'
+project: 'inspire_tree'
+datestamp: 1668446147
